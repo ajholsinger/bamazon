@@ -1,6 +1,9 @@
 var sql = require("mysql");
 var inquirer = require("inquirer");
 
+var item;
+var quantity;
+
 var connection = sql.createConnection({
   host: "localhost",
   user: "root",
@@ -42,25 +45,50 @@ function pick() {
       case "1":
       connection.query("SELECT * FROM products", function(err, res) {
           console.log(res[0].item_id + " | " + res[0].product_name + " | " + res[0].price + " | " + res[0].stock_quantity);
+          item = res[0].item_id + " | " + res[0].product_name + " | " + res[0].price + " | " + res[0].stock_quantity;
       })
       break;
 
       case "2":
       connection.query("SELECT * FROM products", function(err, res) {
           console.log(res[1].item_id + " | " + res[1].product_name + " | " + res[1].price + " | " + res[1].stock_quantity);
+          item = res[1].item_id + " | " + res[1].product_name + " | " + res[1].price + " | " + res[1].stock_quantity;
       })
       break;
 
       case "3":
       connection.query("SELECT * FROM products", function(err, res) {
           console.log(res[2].item_id + " | " + res[2].product_name + " | " + res[2].price + " | " + res[2].stock_quantity);
+          item = res[2].item_id + " | " + res[2].product_name + " | " + res[2].price + " | " + res[2].stock_quantity;
       })
       break;
 
       case "4":
       connection.query("SELECT * FROM products", function(err, res) {
           console.log(res[3].item_id + " | " + res[3].product_name + " | " + res[3].price + " | " + res[3].stock_quantity);
+          item = res[3].item_id + " | " + res[3].product_name + " | " + res[3].price + " | " + res[3].stock_quantity;
       })
+      break;
+
+      case "5": 
+      connection.query("SELECT * FROM products", function(err, res) {
+        console.log(res[4].item_id + " | " + res[4].product_name + " | " + res[4].price + " | " + res[4].stock_quantity);
+        item = res[4].item_id + " | " + res[4].product_name + " | " + res[4].price + " | " + res[4].stock_quantity;
+    })
+      break;
+
+      case "6": 
+      connection.query("SELECT * FROM products", function(err, res) {
+        console.log(res[5].item_id + " | " + res[5].product_name + " | " + res[5].price + " | " + res[5].stock_quantity);
+        item = res[5].item_id + " | " + res[5].product_name + " | " + res[5].price + " | " + res[5].stock_quantity;
+    })
+      break;
+
+      case "7": 
+      connection.query("SELECT * FROM products", function(err, res) {
+        console.log(res[6].item_id + " | " + res[6].product_name + " | " + res[6].price + " | " + res[6].stock_quantity);
+        item = res[6].item_id + " | " + res[6].product_name + " | " + res[6].price + " | " + res[6].stock_quantity;
+    })
       break;
     }
     quantity();
@@ -74,5 +102,23 @@ function quantity() {
     type: "input",
     message: "How many would you like? Up to 5!",
     choices: ["1", "2", "3", "4", "5"]
+  })
+
+  .then (function(answer) {
+    switch (answer.quantity) {
+      case "1":
+      connection.query("SELECT * FROM products", function(err,res) {
+        console.log("Quantity: 1" + " | " + item);
+        quantity = 1;
+      })
+      break;
+
+      case "2":
+      connection.query("SELECT * FROM products", function(err,res) {
+        console.log("Quantity: 2" + " | " + item);
+        quantity = 2;
+      })
+      break;
+    }
   })
 }
